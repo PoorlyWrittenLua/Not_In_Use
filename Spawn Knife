@@ -1,4 +1,4 @@
-local KnifeSkin = 'None'
+local KnifeSkin = 'http://www.roblox.com/asset/?id=130252453'
 local Ability = 'None'
 local Perk = 'None'
 local No_Cooldown = false

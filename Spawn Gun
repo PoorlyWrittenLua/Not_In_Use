@@ -309,7 +309,7 @@ Local_Backpack.ChildAdded:connect(function(Child)
 			end)
 			Gun_Tool.Unequipped:connect(function()
 				Selected = false
-				Local_GetMouse.Icon = "rbxasset://textures\\ArroWeapon_Coreursor.png"
+				Local_GetMouse.Icon = "rbxasset://SystemCursors/Arrow"
 				if WeaponMesh ~= nil then
 					WeaponMesh:Destroy()
 				end

@@ -9,7 +9,7 @@ if _G.Skins == nil then
 
 end
 
-if _G.CurrentKnife ~= nil then 
+if _G.CurrentKnife.Parent ~= nil then 
 	return
 end
 

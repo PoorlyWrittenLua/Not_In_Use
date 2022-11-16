@@ -1,5 +1,5 @@
 local No_Cooldown = false
-local GunSkin = 'None'
+local GunSkin = 'http://www.roblox.com/asset/?id=79401500'
 
 if _G.Skins == nil then 
     

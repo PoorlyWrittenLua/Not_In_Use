@@ -7,6 +7,10 @@ if _G.Skins == nil then
 
 end
 
+if _G.Custom_Gun == true then 
+	return
+end
+
 local Player_Service = game:GetService('Players')
 local WorkSpace_Service = game:GetService('Workspace')
 local Replicated_Service = game:GetService('ReplicatedStorage')
@@ -67,6 +71,8 @@ local shake_freq = 5
 local Gun = false
 
 Local_Player.Backpack:FindFirstChild('Client').Disabled = true
+
+_G.Custom_Gun = true
 
 BlockMesh.Scale = Vector3.new(1, 1.1, 1)
 BlockMesh2.Scale = Vector3.new(1, 1, 1)

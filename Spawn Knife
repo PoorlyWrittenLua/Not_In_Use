@@ -9,7 +9,7 @@ if _G.Skins == nil then
 
 end
 
-if _G.CurrentKnife.Parent ~= nil then 
+if _G.Custom_Knife == true then 
 	return
 end
 
@@ -75,7 +75,7 @@ local MouseDown = false
 local Charge = false
 local CanCloak = true
 
-_G.CurrentKnife = Knife_Tool
+_G.Custom_Knife = true
 
 Local_Player.Backpack:FindFirstChild('Client').Disabled = true
 

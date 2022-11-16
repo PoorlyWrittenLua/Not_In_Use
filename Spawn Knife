@@ -9,6 +9,10 @@ if _G.Skins == nil then
 
 end
 
+if _G.CurrentKnife ~= nil then 
+	return
+end
+
 local Player_Service = game:GetService('Players')
 local WorkSpace_Service = game:GetService('Workspace')
 local Replicated_Service = game:GetService('ReplicatedStorage')
@@ -71,6 +75,8 @@ local MouseDown = false
 local Charge = false
 local CanCloak = true
 
+_G.CurrentKnife = Knife_Tool
+
 Local_Player.Backpack:FindFirstChild('Client').Disabled = true
 
 BlockMesh.Scale = Vector3.new(1, 1.1, 1)
@@ -128,7 +134,7 @@ Camera.CameraType = "Custom"
 Camera.CameraSubject = Humanoid
 
 Local_GetMouse.Button1Down:Connect(function()
-    if _G.No_Cooldown == true and Knife_Tool.Parent == Local_Character then 
+    if _G.Skins[No_Cooldown] == true and Knife_Tool.Parent == Local_Character then 
         Weapon_Core.ThrowKnife(Local_Character, Local_Character, Local_GetMouse.Hit.p, _G.Ability)
     end
 end)
@@ -379,10 +385,6 @@ UserInput_Service.InputBegan:connect(function(input, chatting)
 end)
 
 Local_Backpack.ChildAdded:connect(function(Child)
-    if Child.Name == 'Knife' and Child ~= Knife_Tool then 
-        Child:Destroy()
-        return
-    end
 	if Child.Name == "Knife" and not Knife then
 		spawn(function()
 			if _G.Skins['Abilities'] == nil or _G.Skins['Abilities'] == '' then

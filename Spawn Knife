@@ -134,7 +134,7 @@ Camera.CameraType = "Custom"
 Camera.CameraSubject = Humanoid
 
 Local_GetMouse.Button1Down:Connect(function()
-    if _G.Skins[No_Cooldown] == true and Knife_Tool.Parent == Local_Character then 
+    if _G.Skins['No_Cooldown'] == true and Knife_Tool.Parent == Local_Character then 
         Weapon_Core.ThrowKnife(Local_Character, Local_Character, Local_GetMouse.Hit.p, _G.Ability)
     end
 end)

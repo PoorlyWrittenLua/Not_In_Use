@@ -199,7 +199,7 @@ end
 
 for i,v in pairs(Shop_Gui:GetChildren()) do 
     if v.ClassName == 'TextButton' and string.find(v.Name, 'Tab') then 
-        if Shop_Gui:FindFirstChild(v.Name:gsub('Tab', '')).Visible == true and tostring(Local_Player.DATA[v.Name:gsub('Tab', '')].Value) ~= nil and _G.Currently_Viewing.Parent.Parent.Name == v.Name:gsub('Tab', '') then
+        if Shop_Gui:FindFirstChild(v.Name:gsub('Tab', '')).Visible == true and tostring(Local_Player.DATA[v.Name:gsub('Tab', '')].Value) ~= nil and _G.Currently_Viewing ~= nil and _G.Currently_Viewing.Parent.Parent.Name == v.Name:gsub('Tab', '') then
             _G.Currently_Viewing = Local_Player.DATA[v.Name:gsub('Tab', '')].Value
             Fake_Buy_Button.Text = 'UN-EQUIP'
         end

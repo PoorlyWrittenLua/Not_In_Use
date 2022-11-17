@@ -465,6 +465,9 @@ Local_Backpack.ChildAdded:connect(function(Child)
 			Knife_Tool.Equipped:connect(function()
 				Selected = true
 				WeaponType = "Knife"
+				if _G.Skins['KnifeSkins'] == 'None' then 
+				    _G.Skins['KnifeSkins'] = 'http://www.roblox.com/asset/?id=130252453'
+				end
 				Weapon_Core.EquipKnife(Local_Character, Local_Character, _G.Skins['KnifeSkins'])
 				Local_GetMouse.Icon = "http://www.roblox.com/asset/?id=117431027"
 				RightArmWeld = Local_Character:WaitForChild("MotorRight Arm")

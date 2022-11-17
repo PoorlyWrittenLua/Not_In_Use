@@ -1,0 +1,250 @@
+local Player_Service = game:GetService('Players')
+local WorkSpace_Service = game:GetService('Workspace')
+local Replicated_Service = game:GetService('ReplicatedStorage')
+local Run_Service = game:GetService('RunService')
+
+local Local_Player = Player_Service.LocalPlayer
+local Local_Character = Local_Player.Character
+
+local Module_3D = require(Local_Player.PlayerGui.Module3D);
+local Money_Sound = Local_Player.PlayerGui.Sounds.Money
+local Shop_Gui = Local_Player.PlayerGui.GUI.ShopGUI
+local Knife_Skins = Shop_Gui.KnifeSkins
+local Gun_Skins = Shop_Gui.GunSkins
+local Abilities = Shop_Gui.Abilities
+local Perks = Shop_Gui.Perks
+local Owned = Shop_Gui.SelectedInfo.Owned
+local Buy_Button = Shop_Gui.SelectedInfo.Buy
+local Price = Shop_Gui.SelectedInfo.Price
+local Label = Shop_Gui.Label
+local Fake_Buy_Button = Buy_Button:Clone()
+local Fake_Owned_Text = Owned:Clone()
+local Fake_Price = Price:Clone()
+local Knife_Skin_Button = Local_Player.PlayerGui.GUI.ShopGUI.KnifeSkins.ScrollingFrame.Bloodlust
+local Knife_Skin_3DMODEL = Replicated_Service.Shop.KnifeSkins.Bloodlust
+
+local Skins = Replicated_Service.Shop
+
+_G.Currently_Viewing = 'None'
+
+if _G.Skins == nil then 
+    local Defualt_Knife_Skin = game.ReplicatedStorage.RemoteFunction:InvokeServer("Skin", "Knife")
+    local Defualt_Gun_Skin = game.ReplicatedStorage.RemoteFunction:InvokeServer("Skin", "Gun")
+    if Defualt_Knife_Skin == nil then 
+        Defualt_Knife_Skin = 'http://www.roblox.com/asset/?id=130252453'
+    end
+    if Defualt_Gun_Skin == nil then 
+        Defualt_Gun_Skin = 'http://www.roblox.com/asset/?id=79401500'
+    end
+    _G.Skins = {['KnifeSkins']=Defualt_Knife_Skin,['GunSkins']=Defualt_Gun_Skin,['Abilities']='None',['Perks']='None',['No_Cooldown']=false}
+    Local_Player.DATA.GunSkins.Value = nil
+    Local_Player.DATA.KnifeSkins.Value = nil
+    Local_Player.DATA.Abilities.Value = nil
+    Local_Player.DATA.Perks.Value = nil
+end
+
+Fake_Buy_Button.Parent = Buy_Button.Parent
+Fake_Buy_Button.Visible = true 
+Fake_Buy_Button.Text = 'EQUIP'
+Fake_Buy_Button.Name = 'BuyButton'
+
+Fake_Owned_Text.Parent = Buy_Button.Parent
+Fake_Owned_Text.Visible = true 
+Fake_Owned_Text.Text = 'YOU OWN THIS'
+Fake_Owned_Text.Name = 'OwnedText'
+
+Fake_Price.Parent = Buy_Button.Parent
+Fake_Price.Visible = true 
+Fake_Price.Text = '$0'
+Fake_Price.Name = 'PriceText'
+
+Buy_Button.Visible = false
+Price.Visible = false 
+Owned.Visible = false
+
+Local_Player.PlayerGui.Sounds.Error.Volume = 0
+
+local mt = getrawmetatable(game)
+local namecall = mt.__namecall
+setreadonly(mt,false)
+mt.__namecall = newcclosure(function(self,...)
+    if getnamecallmethod() == 'InvokeServer' then
+        local args = {...}   
+        if args[1] == 'Buy' then
+            if Knife_Skins.Visible == true or Gun_Skins.Visible == true or Abilities.Visible == true or Perks.Visible == true then 
+                return 
+            end
+        end
+    end
+    return namecall(self,...)
+end)
+setreadonly(mt,true)
+
+function Custom_Knife_Skin(Name, ID, Creator, Desc)
+    local Custom_Knife_Button = Instance.new('TextButton', Knife_Skin_Button.Parent)
+    local Custom_Key = Instance.new('BoolValue', Custom_Knife_Button)
+    
+    Custom_Knife_Button.Name = Name
+    Custom_Knife_Button.Text = Name
+    Custom_Knife_Button.Parent = Knife_Skin_Button.Parent
+    Custom_Key.Name = 'Custom_Skin'
+    
+    if Skins.KnifeSkins:FindFirstChild(Name) then 
+    else
+        local Custom_Knife_3DMODEL = Knife_Skin_3DMODEL:Clone()
+        Custom_Knife_3DMODEL.Parent = Knife_Skin_3DMODEL.Parent
+        Custom_Knife_3DMODEL.Name = Name
+        Custom_Knife_3DMODEL.Desc.Value = Desc
+        Custom_Knife_3DMODEL.Creator.Value = Creator
+        Custom_Knife_3DMODEL.Handle.Mesh.TextureId = ID
+    end
+    
+    Custom_Knife_Button.MouseButton1Down:Connect(function()
+        if Knife_Skin_Button.Parent.Visible == true then 
+            _G.Currently_Viewing = Custom_Knife_Button
+            
+            Buy_Button.Parent.Visible = true
+            Buy_Button.Visible = false
+            Owned.Visible = false
+            Owned.Text = ''
+            Price.Visible = false 
+            Owned.Parent.Description.Text = Desc
+            Owned.Parent.ItemName.Text = Name
+            Owned.Parent.CreatorTexture.Image = 'http://www.roblox.com/thumbs/avatar.ashx?x=352&y=352&format=png&username='..Creator
+            Owned.Parent.CreatorTexture.ItemName.Text = Creator
+            
+            Label.Visible = false
+            Fake_Price.Visible = true
+            Fake_Owned_Text.Visible = true
+            Fake_Buy_Button.Visible = true
+        end
+    end)
+end
+
+function Get_Id(Name)
+    if string.find(Name.Parent.Parent.Name, 'Skins') then 
+        for i,v in pairs(Skins[Name.Parent.Parent.Name]:GetChildren()) do 
+            if Name.Name == v.Name then 
+                return v.Handle.Mesh.TextureId
+            end
+        end
+    else 
+        return Name
+    end
+end
+
+function Get_Id(Name)
+    if string.find(Name.Parent.Parent.Name, 'Skins') then 
+        for i,v in pairs(Skins[Name.Parent.Parent.Name]:GetChildren()) do 
+            if tostring(Name.Name) == v.Name then 
+                return v.Handle.Mesh.TextureId
+            end
+        end
+    else 
+        return Name
+    end
+end
+
+function Get_Model(Name)
+    if string.find(Name.Parent.Parent.Name, 'http') then 
+        for i,v in pairs(Skins:GetDescendants()) do 
+            if v.ClassName == 'SpecialMesh'and tostring(v.TextureId) == tostring(Name.Name) then 
+                return v.Parent.Parent
+            end
+        end
+    else 
+        for i,v in pairs(Skins:GetDescendants()) do 
+            if tostring(Name.Name) == v.Name then 
+                return v
+            end
+        end
+    end
+end
+
+function Free_Shop(Parent_Frame)
+    local Buttons = Parent_Frame.ScrollingFrame
+    
+    for i,v in pairs(Buttons:GetChildren()) do 
+        if v.ClassName == 'TextButton' then 
+            if v:FindFirstChild('Check') then 
+                v.Check.Visible = true
+            end
+            
+            v.MouseButton1Down:Connect(function()
+                if Parent_Frame.Visible == true then 
+                    _G.Currently_Viewing = v
+
+                    Run_Service.Heartbeat:wait()
+                    
+                    Buy_Button.Visible = false
+                    Owned.Visible = false
+                    Owned.Text = ''
+                    Price.Visible = false 
+                    
+                    Label.Visible = false
+                    Fake_Price.Visible = true
+                    Fake_Owned_Text.Visible = true
+                    Fake_Buy_Button.Visible = true
+                    
+                    if tostring(Local_Player.DATA[v.Parent.Parent.Name].Value) == tostring(v.Name) then 
+                        Fake_Buy_Button.Text = 'UN-EQUIP'
+                    else 
+                        Fake_Buy_Button.Text = 'EQUIP'
+                    end
+                end
+            end)
+        end
+    end
+end
+
+for i,v in pairs(Shop_Gui:GetChildren()) do 
+    if v.ClassName == 'TextButton' and string.find(v.Name, 'Tab') then 
+        v.MouseButton1Down:Connect(function()
+            Run_Service.Heartbeat:wait()
+            if v.Name == 'TabGear' or v.Name == 'TabPets' then 
+                Fake_Owned_Text.Parent.Visible = true
+                Fake_Buy_Button.Visible = false
+                Fake_Owned_Text.Visible = false 
+                Fake_Price.Visible = false
+
+                Buy_Button.Visible = true
+                Owned.Visible = true
+                Price.Visible = true
+            else 
+                Buy_Button.Visible = false
+                Price.Visible = false 
+                Owned.Visible = false
+                Owned.Text = ''
+                
+                Fake_Price.Visible = true
+                Fake_Owned_Text.Visible = true
+                Fake_Buy_Button.Visible = true
+            end
+        end)
+    end
+end
+
+Fake_Buy_Button.MouseButton1Down:Connect(function()
+    if Knife_Skins.Visible == true or Gun_Skins.Visible == true or Abilities.Visible == true or Perks.Visible == true then 
+        if Fake_Buy_Button.Text == 'UN-EQUIP' and _G.Currently_Viewing ~= nil then 
+            _G.Skins[_G.Currently_Viewing.Parent.Parent.Name] = 'None'
+            Local_Player.DATA[_G.Currently_Viewing.Parent.Parent.Name].Value = nil
+            Fake_Buy_Button.Text = 'EQUIP'
+            return
+        elseif _G.Currently_Viewing ~= nil then 
+            Money_Sound:Play()
+            Run_Service.Heartbeat:wait()
+            Fake_Buy_Button.Text = 'UN-EQUIP'
+            _G.Skins[_G.Currently_Viewing.Parent.Parent.Name] = tostring(Get_Id(_G.Currently_Viewing))
+            Local_Player.DATA[_G.Currently_Viewing.Parent.Parent.Name].Value = Get_Model(_G.Currently_Viewing)
+        end
+    end
+end)
+
+Free_Shop(Knife_Skins)
+Free_Shop(Gun_Skins)
+Free_Shop(Abilities)
+Free_Shop(Perks)
+
+Custom_Knife_Skin('Hentai Knife', 'http://www.roblox.com/asset/?id=11561059530', '9091234', 'WOAH WHAT?!?! THATS ALLOWED??')
+Custom_Knife_Skin('Flabberghasted', 'http://www.roblox.com/asset/?id=11561146573', '9091234', '🤯')

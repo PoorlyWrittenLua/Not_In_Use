@@ -199,7 +199,7 @@ end
 
 for i,v in pairs(Shop_Gui:GetChildren()) do 
     if v.ClassName == 'TextButton' and string.find(v.Name, 'Tab') then 
-        if Shop_Gui:FindFirstChild(v.Name:gsub('Tab', '')).Visible == true and tostring(Local_Player.DATA[v.Parent.Parent.Name].Value) ~= nil then
+        if Shop_Gui:FindFirstChild(v.Name:gsub('Tab', '')).Visible == true and tostring(Local_Player.DATA[v.Name:gsub('Tab', '')].Value) ~= nil then
             Fake_Buy_Button.Text = 'UN-EQUIP'
         end
         v.MouseButton1Down:Connect(function()

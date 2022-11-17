@@ -185,12 +185,12 @@ function Free_Shop(Parent_Frame)
                     Fake_Price.Visible = true
                     Fake_Owned_Text.Visible = true
                     Fake_Buy_Button.Visible = true
-                    
+                    --[[
                     if tostring(Local_Player.DATA[v.Parent.Parent.Name].Value) == tostring(v.Name) then 
                         Fake_Buy_Button.Text = 'UN-EQUIP'
                     else 
                         Fake_Buy_Button.Text = 'EQUIP'
-                    end
+                    end]]
                 end
             end)
         end
@@ -240,6 +240,12 @@ Fake_Buy_Button.MouseButton1Down:Connect(function()
         end
     end
 end)
+
+if tostring(Local_Player.DATA[_G.Currently_Viewing.Parent.Parent.Name].Value) == tostring(_G.Currently_Viewing.Name) then 
+        Fake_Buy_Button.Text = 'UN-EQUIP'
+    else 
+        Fake_Buy_Button.Text = 'EQUIP'
+end
 
 Free_Shop(Knife_Skins)
 Free_Shop(Gun_Skins)

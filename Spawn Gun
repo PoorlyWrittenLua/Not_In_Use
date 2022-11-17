@@ -298,6 +298,9 @@ Local_Backpack.ChildAdded:connect(function(Child)
 				Selected = true
 				WeaponType = "Gun"
 				Local_GetMouse.Icon = "http://www.roblox.com/asset/?id=117431027"
+				if _G.Skins['GunSkins'] == 'None' then 
+				    _G.Skins['GunSkins'] = 'http://www.roblox.com/asset/?id=79401500'
+				end
 				Weapon_Core.EquipGun(Local_Character, Local_Character, _G.Skins['GunSkins'])
 				RightArmWeld = Local_Character:WaitForChild("MotorRight Arm")
 				LeftArmWeld = Local_Character:WaitForChild("MotorLeft Arm")

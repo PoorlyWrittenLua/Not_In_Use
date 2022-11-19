@@ -40,7 +40,7 @@ Local_Player.Chatted:Connect(function(Message)
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
 
         Load_Animation:Play()
-    elseif Message:match("/e Twist") then 
+    elseif Message:match("/e twist") then 
         if In_Tact_Character(Local_Player) == false then return end 
         Stop_Animations()
         local New_Animation = Instance.new'Animation'
@@ -48,7 +48,7 @@ Local_Player.Chatted:Connect(function(Message)
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
 
         Load_Animation:Play()
-    elseif Message:match("/e Shuffle") then 
+    elseif Message:match("/e shuffle") then 
         if In_Tact_Character(Local_Player) == false then return end 
         Stop_Animations()
         local New_Animation = Instance.new'Animation'

@@ -3,7 +3,7 @@ local Player_Service = game:GetService('Players')
 local Local_Player = Player_Service.LocalPlayer
 
 function In_Tact_Character(Player)
-    if Player_Service:FindFirstChild(Player.Name) and Player.Character and Player.Character:FindFirstChild('Humanoid') then --and Player.Character:FindFirstChild('Humanoid').Health ~= 0
+    if Player_Service:FindFirstChild(tostring(Player)) and Player.Character and Player.Character:FindFirstChild('Humanoid') then --and Player.Character:FindFirstChild('Humanoid').Health ~= 0
         return true
     end
     return false

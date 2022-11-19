@@ -11,41 +11,41 @@ end
 
 Local_Player.Chatted:Connect(function(Message)
     if Message:match("/e twerk") then 
-        if In_Tact_Character(Player) == false then return end 
+        if In_Tact_Character(Local_Player) == false then return end 
         local New_Animation = Instance.new'Animation'
         New_Animation.AnimationId='rbxassetid://277485142'
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
         Load_Animation:Play()
     elseif Message:match("/e superman") then 
-        if In_Tact_Character(Player) == false then return end 
+        if In_Tact_Character(Local_Player) == false then return end 
         local New_Animation = Instance.new'Animation'
         New_Animation.AnimationId='rbxassetid://277929891'
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
 
         Load_Animation:Play()
     elseif Message:match("/e fist") then 
-        if In_Tact_Character(Player) == false then return end 
+        if In_Tact_Character(Local_Player) == false then return end 
         local New_Animation = Instance.new'Animation'
         New_Animation.AnimationId='rbxassetid://280872840'
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
 
         Load_Animation:Play()
     elseif Message:match("/e Twist") then 
-        if In_Tact_Character(Player) == false then return end 
+        if In_Tact_Character(Local_Player) == false then return end 
         local New_Animation = Instance.new'Animation'
         New_Animation.AnimationId='rbxassetid://280865087'
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
 
         Load_Animation:Play()
     elseif Message:match("/e Shuffle") then 
-        if In_Tact_Character(Player) == false then return end 
+        if In_Tact_Character(Local_Player) == false then return end 
         local New_Animation = Instance.new'Animation'
         New_Animation.AnimationId='rbxassetid://277955949'
         local Load_Animation = Local_Player.Character.Humanoid:LoadAnimation(New_Animation)
 
         Load_Animation:Play()
     elseif Message:match("/e") then 
-        if In_Tact_Character(Player) == false then return end 
+        if In_Tact_Character(Local_Player) == false then return end 
         local Animation_Tracks = Local_Player.Character.Humanoid:GetPlayingAnimationTracks()
         for i,v in pairs(Animation_Tracks) do 
             i:Stop()

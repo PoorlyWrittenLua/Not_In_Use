@@ -46,6 +46,7 @@ local FPS_Left_Arm_Weld = Instance.new('Motor')
 local FPS_Right_Arm_Weld = Instance.new('Motor')
 local BlockMesh = Instance.new("BlockMesh", FPS_Left_Arm)
 local BlockMesh2 = Instance.new("BlockMesh", FPS_Right_Arm)
+local Knife_Tool_Value = Instance.new('BoolValue', Knife_Tool)
 
 local WeaponMesh
 local RightArmWeld
@@ -81,6 +82,8 @@ Local_Player.Backpack:FindFirstChild('Client').Disabled = true
 
 BlockMesh.Scale = Vector3.new(1, 1.1, 1)
 BlockMesh2.Scale = Vector3.new(1, 1, 1)
+
+Knife_Tool_Value.Name = 'Custom'
 
 FPS_Model.Name = 'FpsModel'
 
@@ -402,9 +405,6 @@ Local_Backpack.ChildAdded:connect(function(Child)
 						Cloaked = false
 					end
 				end)
-				if Gamemode == "Infected" or Gamemode == "One In The Chamber" then
-					return
-				end
 				if not DB2 and not DB then
 					DB2 = true
 					spawn(function()

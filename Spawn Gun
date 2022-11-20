@@ -281,7 +281,7 @@ Local_Backpack.ChildAdded:connect(function(Child)
 		if Local_Backpack:findFirstChild("Gun") ~= nil then
 			Gun = true
 				Gun_Tool.Activated:connect(function()
-					Local_Character.Bullet.Value = true
+					--Local_Character.Bullet.Value = true
 					if not DB then
 						DB = true
 						Weapon_Core.ShootGun(Local_Character, Local_Character, Local_GetMouse.Hit.p, FPS, FPS_Weapon)

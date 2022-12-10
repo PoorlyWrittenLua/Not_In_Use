@@ -504,11 +504,11 @@ for i,v in pairs(Local_Character:GetChildren()) do
         Humanoid:UnequipTools()
     end
 end
-
+wait()
 Humanoid:EquipTool(Knife_Tool)
 wait()
 Humanoid:UnequipTools()
-
+wait()
 for i,v in pairs(Saved_Tools) do 
     Humanoid:EquipTool(v)
 end

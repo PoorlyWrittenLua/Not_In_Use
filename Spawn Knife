@@ -496,9 +496,22 @@ Local_Backpack.ChildAdded:connect(function(Child)
 	end
 end)
 
+local Saved_Tools = {}
+
+for i,v in pairs(Local_Character:GetChildren()) do 
+    if v:IsA('Tool') then 
+        table.insert(Saved_Tools, v)
+        Humanoid:UnequipTools()
+    end
+end
+
 Humanoid:EquipTool(Knife_Tool)
 wait()
 Humanoid:UnequipTools()
+
+for i,v in pairs(Saved_Tools) do 
+    Humanoid:EquipTool(v)
+end
 
 Player_Service.ChildAdded:connect(function(Child)
 	wait(3)
